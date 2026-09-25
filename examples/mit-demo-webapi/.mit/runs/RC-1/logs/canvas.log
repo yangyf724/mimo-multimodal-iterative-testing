@@ -1,0 +1,12 @@
+$ C:\Users\91253\AppData\Local\Programs\Xiaomi MiMo\resources\runtimes\win32-x64\python\python.exe D:\mimo\worktrees\Mimo Iterative Bug Hunter\multimodal-iterative-testing\scripts/canvas_probe.py --root D:\mimo\worktrees\Mimo Iterative Bug Hunter\examples\mit-demo-webapi
+--- stdout ---
+{
+  "findings": [],
+  "unavailable": [],
+  "by_canvas": {},
+  "items_scanned": 0,
+  "ok": true
+}
+
+--- stderr ---
+

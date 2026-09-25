@@ -1,0 +1,10 @@
+{
+  "rc_id": "RC-1",
+  "rc_n": 1,
+  "rc_sha": "2db6c86fef5a4580ae62ecedca2845a41f0d1bfd0c7c2d88599cd4eaba61f0ac",
+  "rc_ref": "209a75c3abc2fbee7a0312d9de0160bc0ed831ee",
+  "built_at": "2026-09-25T02:58:33Z",
+  "root": "D:\\mimo\\worktrees\\Mimo Iterative Bug Hunter\\examples\\mit-demo-webapi",
+  "matrix_rev": "m2",
+  "git_head": "209a75c3abc2fbee7a0312d9de0160bc0ed831ee"
+}

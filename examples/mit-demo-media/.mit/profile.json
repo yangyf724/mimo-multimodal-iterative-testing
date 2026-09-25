@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skill": "multimodal-iterative-testing",
+  "scanned_at": "2026-09-25T02:58:34Z",
+  "root": "D:\\mimo\\worktrees\\Mimo Iterative Bug Hunter\\examples\\mit-demo-media",
+  "app_types": [
+    "web",
+    "canvas",
+    "3d"
+  ],
+  "runtime": "node@20",
+  "topology": "api",
+  "devices": [
+    "unknown"
+  ],
+  "data_classes": [
+    "media"
+  ],
+  "plugins": [],
+  "release_artifact": "npm",
+  "contract_apis": [
+    "unknown"
+  ],
+  "prod_access": "none"
+}

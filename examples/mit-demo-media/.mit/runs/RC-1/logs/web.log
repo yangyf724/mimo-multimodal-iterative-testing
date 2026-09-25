@@ -1,0 +1,29 @@
+$ C:\Users\91253\AppData\Local\Programs\Xiaomi MiMo\resources\runtimes\win32-x64\python\python.exe D:\mimo\worktrees\Mimo Iterative Bug Hunter\multimodal-iterative-testing\scripts/layout_probe.py --help
+--- stdout ---
+usage: layout_probe.py [-h] --viewport-width VIEWPORT_WIDTH
+                       [--viewport-height VIEWPORT_HEIGHT] [--epsilon EPSILON]
+                       [--touch-target-px TOUCH_TARGET_PX]
+                       [--overlap-ratio OVERLAP_RATIO] [--route ROUTE]
+                       [--viewport VIEWPORT] [--rules RULES]
+                       [--fp-patterns FP_PATTERNS]
+
+Layout geom probe (Phase 1 full rules)
+
+options:
+  -h, --help            show this help message and exit
+  --viewport-width VIEWPORT_WIDTH
+                        viewport width in px
+  --viewport-height VIEWPORT_HEIGHT
+                        viewport height in px
+  --epsilon EPSILON     overflow epsilon px
+  --touch-target-px TOUCH_TARGET_PX
+  --overlap-ratio OVERLAP_RATIO
+  --route ROUTE
+  --viewport VIEWPORT
+  --rules RULES         comma-separated rule ids; default all
+  --fp-patterns FP_PATTERNS
+                        optional FP whitelist JSON; matching findings get
+                        status=suppressed
+
+--- stderr ---
+

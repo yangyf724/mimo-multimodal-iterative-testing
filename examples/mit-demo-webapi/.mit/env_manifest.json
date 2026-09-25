@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "created_at": "2026-09-25T02:58:32Z",
+  "root": "D:\\mimo\\worktrees\\Mimo Iterative Bug Hunter\\examples\\mit-demo-webapi",
+  "host": {
+    "system": "Windows",
+    "release": "11",
+    "machine": "AMD64",
+    "python": "3.12.13"
+  },
+  "layers": {
+    "E0": {
+      "name": "local-sandbox",
+      "available": true,
+      "notes": "default execution"
+    },
+    "E1": {
+      "name": "prod-equivalent",
+      "available": false,
+      "topology": "api",
+      "topology_delta": "unverified",
+      "network_delta": "unverified",
+      "notes": "E1 equivalence not verified in this workspace; do not treat as production-equivalent without §7.2 checks"
+    },
+    "E2": {
+      "name": "real-production",
+      "available": false,
+      "prod_access": "none",
+      "notes": "no prod access — results must be declared missing"
+    },
+    "E3": {
+      "name": "devices",
+      "available": false,
+      "devices": [
+        "unknown"
+      ],
+      "notes": "sim must be labeled; missing device => blind spot"
+    }
+  },
+  "runtime_locked": "node@20",
+  "dev_only_bypass": false,
+  "observability_exportable": false
+}

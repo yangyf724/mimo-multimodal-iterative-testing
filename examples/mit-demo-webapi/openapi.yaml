@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+  title: MIT Demo WebAPI
+  version: 1.0.0
+paths:
+  /api/health:
+    get:
+      summary: Health check
+      responses:
+        "200":
+          description: ok
+  /api/orders:
+    post:
+      summary: Create order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [item, qty]
+              properties:
+                item: { type: string }
+                qty: { type: number }
+      responses:
+        "201":
+          description: created
+        "400":
+          description: invalid

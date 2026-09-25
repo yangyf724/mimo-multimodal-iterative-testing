@@ -1,0 +1,6 @@
+$ C:\Users\91253\AppData\Local\Programs\Xiaomi MiMo\resources\runtimes\win32-x64\python\python.exe D:\mimo\worktrees\Mimo Iterative Bug Hunter\multimodal-iterative-testing\scripts/api_contract_check.py --root D:\mimo\worktrees\Mimo Iterative Bug Hunter\examples\mit-demo-webapi
+--- stdout ---
+{"contract": {"ok": true, "files": ["openapi.yaml"], "findings": []}, "health": {"skipped": true, "reason": "no --base-url"}}
+
+--- stderr ---
+

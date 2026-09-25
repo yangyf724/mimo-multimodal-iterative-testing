@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": {
+    "target_cleared": true,
+    "zero_new_high": true,
+    "non_target_stable": true,
+    "regression_green": true
+  },
+  "failed_checks": [],
+  "evaluated_at": "2026-09-25T02:42:52Z",
+  "defect_id": "D-PLANTED-1"
+}

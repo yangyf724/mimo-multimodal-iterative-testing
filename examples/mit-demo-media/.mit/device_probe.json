@@ -1,0 +1,15 @@
+{
+  "scanned_at": "2026-09-25T02:58:36Z",
+  "devices": [
+    {
+      "device": "unknown",
+      "kind": "missing",
+      "real": false,
+      "available": false,
+      "notes": "no device probe attached; coverage counts only verified devices"
+    }
+  ],
+  "coverage": 0.0,
+  "all_sim": true,
+  "verified": false
+}

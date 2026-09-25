@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "skill": "multimodal-iterative-testing",
+  "mode": "test-and-fix",
+  "created_at": "2026-09-25T02:58:35Z",
+  "updated_at": "2026-09-25T03:18:53Z",
+  "rc_n": 1,
+  "rc_sha": "871f2b7eda99f1da4e2d7decc80f1da5eefd3a88c445c4da4491d448c1c562e0",
+  "matrix_rev": "m2",
+  "round": 1,
+  "quiet_streak": 0,
+  "open_defects": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 0,
+    "P3": 0
+  },
+  "signals": {
+    "build_ok": true,
+    "matrix_required_coverage": 0.4,
+    "required_gaps": [
+      "web:blind_spot",
+      "av:blind_spot",
+      "3d:blind_spot"
+    ],
+    "optional_degraded": [],
+    "open_p0": 0,
+    "open_p1": 0,
+    "open_p2": 0,
+    "p2_user_accepted": false,
+    "regression_green": true,
+    "fixed_without_regression": [],
+    "fixed_without_gate": [],
+    "device_coverage": 0.0,
+    "device_all_sim": true,
+    "data_mask_clean": true,
+    "release_layers": {
+      "artifact_ready": false,
+      "exposure_ready": false,
+      "exposure_constraint": "no_prod_or_coverage_gap_conditional_only"
+    },
+    "prod_test": {
+      "available": false,
+      "mode": "none",
+      "slis": [],
+      "critical_path_pass": null
+    },
+    "oracle_quality": {
+      "k": 0,
+      "agreement_rate": null,
+      "fp_rate_estimate": null
+    },
+    "contract_breaking_unreviewed": false,
+    "blind_spots": [
+      "RC-1:web",
+      "RC-1:av",
+      "RC-1:3d"
+    ],
+    "quiet_streak": 0
+  },
+  "prod_access": "none",
+  "prod_test_state": "missing",
+  "decision": "escalated",
+  "blinds": [
+    {
+      "id": "RC-1:web",
+      "reason": "required modality has no real executable probe; recorded as blind spot (not PASS)",
+      "at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "id": "RC-1:av",
+      "reason": "required modality has no real executable probe; recorded as blind spot (not PASS)",
+      "at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "id": "RC-1:3d",
+      "reason": "required modality has no real executable probe; recorded as blind spot (not PASS)",
+      "at": "2026-09-25T03:18:52Z"
+    }
+  ],
+  "budget": {
+    "max_rc_rounds": 5,
+    "max_wall_clock_hours": 4,
+    "max_fix_failures_per_defect": 2,
+    "max_p0_fix_rounds": 3,
+    "max_compose_escalations": 1
+  }
+}

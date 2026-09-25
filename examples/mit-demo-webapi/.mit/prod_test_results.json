@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "generated_at": "2026-09-25T02:58:34Z",
+  "prod_access": "none",
+  "rc_id": "RC-1",
+  "rc_sha": "2db6c86fef5a4580ae62ecedca2845a41f0d1bfd0c7c2d88599cd4eaba61f0ac",
+  "available": false,
+  "mode": "none",
+  "missing_declaration": {
+    "reason": "prod_access=none — no authorized production probe",
+    "impact": "PRD missing; unconditional Allow is forbidden",
+    "recommended": "conditional Allow (exposure constraint) or Deny/Escalate"
+  },
+  "critical_path_pass": null,
+  "slis": []
+}

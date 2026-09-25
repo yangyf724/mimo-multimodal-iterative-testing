@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "skill": "multimodal-iterative-testing",
+  "matrix_rev": "m2",
+  "frozen": true,
+  "created_at": "2026-09-25T03:01:44Z",
+  "profile_hash": "439c04d8d5696ba3bd39d10ad290b51b62de22666ca9bce52419ffe99e7bfe2b",
+  "user_modalities": [
+    "api",
+    "web"
+  ],
+  "counts": {
+    "required": 3,
+    "optional": 1,
+    "n/a": 9
+  },
+  "items": [
+    {
+      "modality": "code",
+      "mark": "required",
+      "evidence_floor": "测试退出码、lint/audit 报告",
+      "status": "done"
+    },
+    {
+      "modality": "api",
+      "mark": "required",
+      "evidence_floor": "contract diff、authz 矩阵、黄金响应",
+      "status": "done"
+    },
+    {
+      "modality": "web",
+      "mark": "required",
+      "evidence_floor": "route×viewport、axe/contrast、visual diff",
+      "status": "blind_spot"
+    },
+    {
+      "modality": "mobile",
+      "mark": "n/a",
+      "evidence_floor": "冷启动日志、权限流、设备矩阵",
+      "status": "excluded"
+    },
+    {
+      "modality": "desktop",
+      "mark": "n/a",
+      "evidence_floor": "installer verify、update path、签名状态",
+      "status": "excluded"
+    },
+    {
+      "modality": "cli",
+      "mark": "n/a",
+      "evidence_floor": "golden exit/stdout/stderr、flag 矩阵",
+      "status": "excluded"
+    },
+    {
+      "modality": "db",
+      "mark": "optional",
+      "evidence_floor": "migrate dry-run、restore smoke",
+      "status": "degraded"
+    },
+    {
+      "modality": "infra",
+      "mark": "n/a",
+      "evidence_floor": "image scan、readiness、secret hygiene",
+      "status": "excluded"
+    },
+    {
+      "modality": "av",
+      "mark": "n/a",
+      "evidence_floor": "元数据探针、可播冒烟、导出参数",
+      "status": "excluded"
+    },
+    {
+      "modality": "canvas",
+      "mark": "n/a",
+      "evidence_floor": "scene 与导出交叉验证",
+      "status": "excluded"
+    },
+    {
+      "modality": "3d",
+      "mark": "n/a",
+      "evidence_floor": "加载日志、预算计数",
+      "status": "excluded"
+    },
+    {
+      "modality": "xr",
+      "mark": "n/a",
+      "evidence_floor": "session 日志、帧率采样、sim/real 标注",
+      "status": "excluded"
+    },
+    {
+      "modality": "plugin",
+      "mark": "n/a",
+      "evidence_floor": "host-API pin、install/upgrade 流",
+      "status": "excluded"
+    }
+  ],
+  "matrix_hash": "355dc459f46adb95c4efc521e0f5ede7f814029689e7885083df881390c42373",
+  "history": [
+    {
+      "matrix_rev": "m2",
+      "reason": "demo webapi scope",
+      "at": "2026-09-25T03:01:44Z"
+    },
+    {
+      "matrix_rev": "m2",
+      "reason": "demo webapi scope",
+      "at": "2026-09-25T03:01:44Z"
+    }
+  ],
+  "frozen_at": "2026-09-25T03:01:44Z",
+  "freeze_reason": "demo webapi scope"
+}

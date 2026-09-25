@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skill": "multimodal-iterative-testing",
+  "scanned_at": "2026-09-25T02:58:31Z",
+  "root": "D:\\mimo\\worktrees\\Mimo Iterative Bug Hunter\\examples\\mit-demo-webapi",
+  "app_types": [
+    "web",
+    "api",
+    "db"
+  ],
+  "runtime": "node@20",
+  "topology": "api",
+  "devices": [
+    "unknown"
+  ],
+  "data_classes": [
+    "pii"
+  ],
+  "plugins": [],
+  "release_artifact": "npm",
+  "contract_apis": [
+    "openapi.yaml"
+  ],
+  "prod_access": "none"
+}

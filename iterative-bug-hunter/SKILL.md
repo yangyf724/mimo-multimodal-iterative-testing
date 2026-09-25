@@ -1,6 +1,6 @@
 ---
 name: iterative-bug-hunter
-description: 全模态迭代抓 BUG 直到收敛：代码 + 视觉布局/无障碍/响应式 + 画布通道，指纹去重、跨模态确认、可选修复+回归门。Use when the user says 抓BUG, 找bug, 修到没有, bug hunt, hunt until clean, 网页视觉问题, 布局炸了, 无障碍, 画布设计检查, UI不对, 对比度, 响应式问题, design QA, or visual bug. Do NOT use for one-shot lint 汇总, pure feature dev, or when no runnable app/assets and user only wants static code review.
+description: 全模态迭代抓 BUG 直到收敛：代码 + 视觉布局/无障碍/响应式 + 画布通道，指纹去重、跨模态确认、可选修复+回归门。Use when the user says 抓BUG, 找bug, 修到没有, bug hunt, hunt until clean, 网页视觉问题, 布局炸了, 无障碍, 画布设计检查, UI不对, 对比度, 响应式问题, design QA, or visual bug. Do NOT use for one-shot lint 汇总, pure feature dev, or when no runnable app/assets and user only wants static code review. 发布就绪 / go-no-go / RC 验收 / 能不能发版 → multimodal-iterative-testing。
 ---
 
 # Iterative Bug Hunter

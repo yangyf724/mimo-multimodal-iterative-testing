@@ -1,0 +1,11 @@
+{
+  "id": "D-PLANTED-1",
+  "title": "D-PLANTED-1",
+  "modality": "code",
+  "level": "P0",
+  "status": "fixed",
+  "regression": "examples/mit-demo-webapi/tests/smoke.test.js",
+  "notes": "",
+  "updated_at": "2026-09-25T02:42:53Z",
+  "rc_id": "RC-1"
+}

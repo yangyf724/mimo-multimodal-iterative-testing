@@ -1,0 +1,141 @@
+{
+  "rc_id": "RC-1",
+  "rc_sha": "871f2b7eda99f1da4e2d7decc80f1da5eefd3a88c445c4da4491d448c1c562e0",
+  "matrix_rev": "m2",
+  "results": [
+    {
+      "modality": "code",
+      "mark": "required",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence": [
+        ".mit\\runs\\RC-1\\logs\\code.log"
+      ],
+      "notes": "",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "api",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "web",
+      "mark": "required",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "blind_spot",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "required modality has no real executable probe; recorded as blind spot (not PASS)",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "mobile",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "desktop",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "cli",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "db",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "infra",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "av",
+      "mark": "required",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "blind_spot",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "required modality has no real executable probe; recorded as blind spot (not PASS)",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "canvas",
+      "mark": "required",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence": [
+        ".mit\\runs\\RC-1\\logs\\canvas.log"
+      ],
+      "notes": "",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "3d",
+      "mark": "required",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "blind_spot",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "required modality has no real executable probe; recorded as blind spot (not PASS)",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "xr",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:18:52Z"
+    },
+    {
+      "modality": "plugin",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:18:52Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:18:52Z"
+    }
+  ]
+}

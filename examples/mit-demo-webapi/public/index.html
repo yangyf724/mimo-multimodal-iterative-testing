@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MIT Demo WebAPI</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    .ok { color: #0a0; }
+    form { margin-top: 1rem; display: grid; gap: 0.5rem; max-width: 20rem; }
+  </style>
+</head>
+<body>
+  <h1>MIT Demo WebAPI</h1>
+  <p class="ok" id="health">checking health…</p>
+  <form id="order">
+    <label>item <input name="item" required /></label>
+    <label>qty <input name="qty" type="number" min="1" value="1" required /></label>
+    <button type="submit">Create order</button>
+  </form>
+  <pre id="out"></pre>
+  <script>
+    fetch("/api/health").then(r => r.json()).then(d => {
+      document.getElementById("health").textContent = "API healthy: " + d.service;
+    }).catch(() => {
+      document.getElementById("health").textContent = "API unreachable";
+    });
+    document.getElementById("order").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ item: fd.get("item"), qty: Number(fd.get("qty")) })
+      });
+      document.getElementById("out").textContent = await res.text();
+    });
+  </script>
+</body>
+</html>

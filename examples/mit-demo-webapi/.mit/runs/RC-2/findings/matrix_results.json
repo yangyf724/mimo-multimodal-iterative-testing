@@ -1,0 +1,137 @@
+{
+  "rc_id": "RC-2",
+  "rc_sha": "cd5a501b701e9bc9e47c10af31e9f87c2b4d7b1a979f42e1fe4872f648ac13d5",
+  "matrix_rev": "m1",
+  "results": [
+    {
+      "modality": "code",
+      "mark": "required",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "dry_run",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "dry-run: probe not executed",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "api",
+      "mark": "required",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "dry_run",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "dry-run: probe not executed",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "web",
+      "mark": "required",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "dry_run",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "dry-run: probe not executed",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "mobile",
+      "mark": "n/a",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "desktop",
+      "mark": "n/a",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "cli",
+      "mark": "n/a",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "db",
+      "mark": "optional",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "dry_run",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "dry-run: probe not executed",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "infra",
+      "mark": "n/a",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "av",
+      "mark": "n/a",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "canvas",
+      "mark": "n/a",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "3d",
+      "mark": "n/a",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "xr",
+      "mark": "optional",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "dry_run",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "dry-run: probe not executed",
+      "finished_at": "2026-09-25T02:42:53Z"
+    },
+    {
+      "modality": "plugin",
+      "mark": "n/a",
+      "started_at": "2026-09-25T02:42:53Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T02:42:53Z"
+    }
+  ]
+}

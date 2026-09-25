@@ -1,0 +1,141 @@
+{
+  "rc_id": "RC-1",
+  "rc_sha": "2db6c86fef5a4580ae62ecedca2845a41f0d1bfd0c7c2d88599cd4eaba61f0ac",
+  "matrix_rev": "m2",
+  "results": [
+    {
+      "modality": "code",
+      "mark": "required",
+      "started_at": "2026-09-25T03:01:44Z",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence": [
+        ".mit\\runs\\RC-1\\logs\\code.log"
+      ],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:44Z"
+    },
+    {
+      "modality": "api",
+      "mark": "required",
+      "started_at": "2026-09-25T03:01:44Z",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence": [
+        ".mit\\runs\\RC-1\\logs\\api.log"
+      ],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "web",
+      "mark": "required",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "blind_spot",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "required modality has no real executable probe; recorded as blind spot (not PASS)",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "mobile",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "desktop",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "cli",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "db",
+      "mark": "optional",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "unavailable",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "no probe wired",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "infra",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "av",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "canvas",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "3d",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "xr",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:45Z"
+    },
+    {
+      "modality": "plugin",
+      "mark": "n/a",
+      "started_at": "2026-09-25T03:01:45Z",
+      "status": "excluded",
+      "exit_code": null,
+      "evidence": [],
+      "notes": "",
+      "finished_at": "2026-09-25T03:01:45Z"
+    }
+  ]
+}
