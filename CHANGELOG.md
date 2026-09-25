@@ -7,6 +7,22 @@ Versioning follows [SemVer](https://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-09-25
+
+### 摘要
+Skill 重构：新增 **全模态迭代测试（MIT-Test）**，从「抓 BUG 收敛」升级为「发布就绪裁决」。含画像→矩阵冻结、RC Loop、P0–P3+Fix Gate、脱敏硬门、E0–E3/生产缺失声明、测试报告+证据包+SIG/RPT/EVD/PRD 综合裁决（Allow/Deny/Escalate）；双 demo 验收与防假 PASS 评审修复。
+
+### Added
+- `multimodal-iterative-testing/` — 新 skill **全模态迭代测试（MIT-Test）**：Profile→Matrix 冻结、`.mit/` 状态与 RC Loop、P0–P3 缺陷与 Fix Gate（含强制回归）、E0–E3 环境/脱敏硬门/设备与生产探测、TEST_REPORT + 证据包 + 裁决信号 + Allow/Deny/Escalate 升级包（设计真源 `docs/skill-refactor-multimodal-iterative-testing.md`）
+- `multimodal-iterative-testing/references/` — 24 篇契约文档（profile/matrix/13 模态/四层/env/prod/data/defect/fix/deliverables/adjudication/escalate）
+- `multimodal-iterative-testing/scripts/` — 画像/矩阵/状态/RC/矩阵执行/缺陷/修复门/脱敏/环境/设备/生产/交付装配/升级/迁移，及自 MIBG 迁入探针副本
+- `examples/mit-demo-webapi/` / `examples/mit-demo-media/` — MIT-Test 双验收 demo 与 `.mit/` 交付物（含 Deny / Escalate 裁决演示）
+- `tests/test_mit_core.py` — MIT 核心路径单元测试（与 MIBG 脚本同名模块隔离加载）
+
+### Changed
+- `iterative-bug-hunter/SKILL.md` — description 负例指向 MIT-Test（发布就绪/go-no-go/RC 验收）
+- `README.md` — 双 skill 仓库定位与 MIT 快速开始
+
 ## [1.0.2] - 2026-09-18
 
 ### 摘要

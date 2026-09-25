@@ -2,41 +2,41 @@
 
 **简称：** MIBG（Mimo Iterative Bug Hunter）— 对话与文档中可用 MIBG 指代本项目。
 
-全模态迭代抓 BUG 的 MiMoCode skill 源码仓：代码通道 + Web 视觉通道 + 画布通道，指纹去重、跨模态确认、quiet 四条件收敛。
+MiMoCode skill 源码仓，现含两套 skill：
+
+1. **MIBG** `iterative-bug-hunter/` — 全模态迭代抓 BUG（code + Web 视觉 + 画布），quiet 四条件收敛
+2. **MIT-Test** `multimodal-iterative-testing/` — 全模态迭代测试 / 发布就绪裁决（Profile→Matrix→RC Loop→Allow/Deny/Escalate）
 
 <!-- github-sync:begin -->
-**Version:** 1.0.2  
-**Last sync:** 2026-09-18
+**Version:** 2.0.0  
+**Last sync:** 2026-09-25
 <!-- github-sync:end -->
 
 ## 仓库定位
 
-- `DESIGN.md` — 设计真源（全模态 taxonomy、策略库、收敛与 Fix Gate）
-- `iterative-bug-hunter/` — skill 本体（SKILL.md + scripts + references + locales）；**唯一 skill 真源**
-- `examples/acceptance-demo/` — Phase 0–2 本地验收 demo（双路由 + overflow / touch-target / overlap / contrast / 死链 / 无反馈 submit / canvas 场景 / flows）
-- `examples/second-project/` — Phase 3 第二验收 demo（泛化：`/shop` `/contact` + 不同缺陷组合）
-- `tests/` — 状态机与探针单元测试（stdlib unittest）
-- `docs/ACCEPTANCE.md` — Phase 0–3 DoD 勾选
-- `docs/METRICS.md` — 观测记录
-- `docs/BLUEPRINTS.md` — Fix 升格研究结论索引（blueprint ≠ Spec）
-- `docs/compose/spec/workspace-cleanup.md` — 本次工作区清理 feature 文档
-- 历史 phase feature 文档已收敛；交付细节以 `CHANGELOG.md` 为准
+- `DESIGN.md` — MIBG 设计真源（全模态 taxonomy、策略库、收敛与 Fix Gate）
+- `docs/skill-refactor-multimodal-iterative-testing.md` — MIT-Test 设计真源（MIT-DESIGN-001）
+- `iterative-bug-hunter/` — MIBG skill 本体；视觉/布局抓 BUG 唯一真源
+- `multimodal-iterative-testing/` — MIT-Test skill 本体（SKILL.md + scripts + references + locales）；发布就绪测试真源
+- `examples/acceptance-demo/` / `examples/second-project/` — MIBG 验收 demo
+- `examples/mit-demo-webapi/` / `examples/mit-demo-media/` — MIT-Test 双 demo（web+api / media+canvas+3d）
+- `tests/` — 单元测试（MIBG phase* + MIT `test_mit_core`）
+- `docs/ACCEPTANCE.md` / `docs/METRICS.md` / `docs/BLUEPRINTS.md` — 观测与索引
+- `docs/compose/spec/multimodal-iterative-testing.md` — MIT-Test 重构 compose spec
 
 ## 快速开始
 
 ```powershell
-# 单元测试
+# 单元测试（两套 skill）
 $env:MIMO_PYTHON -m unittest discover -s tests -v
 
-# Phase 2 fixture E2E（无浏览器）
-$env:MIMO_PYTHON tests/phase2_fixture_e2e.py
+# MIT-Test：对项目生成画像与冻结矩阵
+& $env:MIMO_PYTHON multimodal-iterative-testing/scripts/profile_scan.py --root <project>
+& $env:MIMO_PYTHON multimodal-iterative-testing/scripts/matrix_build.py --root <project> --freeze
 
-# 在目标项目初始化状态
+# MIBG：在目标项目初始化状态
 & $env:MIMO_PYTHON iterative-bug-hunter/scripts/init_state.py --root <project> --routes / /about
-
-# 启动验收 demo
-cd examples/acceptance-demo
-npm start   # http://127.0.0.1:5173
+```
 
 # Phase 1：采集 + 单轮 hunt（需 Playwright；否则用 MCP 采集后 --skip-capture）
 & $env:MIMO_PYTHON ../../iterative-bug-hunter/scripts/capture_web.py --root . --run-id run-1
