@@ -3,7 +3,7 @@ feature: mmit-unified
 status: delivered
 updated: 2026-09-25
 branch: dev
-commits: 59649ce..WORKTREE  # base..head (uncommitted at finalize; fill when committing)
+commits: 59649ce..44007c1
 ---
 
 # 统一 MMIT Skill（mmit 流水线）
