@@ -8,7 +8,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ROOT / "mmit-hunter" / "scripts"
+SCRIPTS = ROOT / "mmit" / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
 import canvas_probe  # noqa: E402
@@ -22,7 +22,7 @@ def main() -> int:
     fixtures = ROOT / "tests" / "fixtures"
     with tempfile.TemporaryDirectory() as td:
         root = Path(td)
-        bh = root / ".bug-hunter"
+        bh = root / ".mmit"
         captures = bh / "runs" / "run-1" / "captures"
         captures.mkdir(parents=True)
         (bh / "runs" / "run-1" / "findings" / "raw").mkdir(parents=True)
@@ -142,7 +142,7 @@ def main() -> int:
 
         flows = demo / "flows"
         if not flows.exists():
-            flows = demo / ".bug-hunter" / "flows"
+            flows = demo / ".mmit" / "flows"
         summary = hunt_round.run_hunt_round(
             root=root,
             run_id="run-1",

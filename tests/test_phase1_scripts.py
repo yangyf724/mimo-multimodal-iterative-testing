@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "mmit-hunter" / "scripts"))
+sys.path.insert(0, str(ROOT / "mmit" / "scripts"))
 
 import capture_web as cw  # noqa: E402
 import contrast_probe as cp  # noqa: E402
@@ -52,8 +52,8 @@ class TestCaptureHelpers(unittest.TestCase):
     def test_manifest_unavailable_backend(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
-            (root / ".bug-hunter").mkdir()
-            (root / ".bug-hunter" / "state.json").write_text(
+            (root / ".mmit").mkdir()
+            (root / ".mmit" / "state.json").write_text(
                 json.dumps(
                     {
                         "surfaces": {
@@ -412,7 +412,7 @@ class TestFixGate(unittest.TestCase):
     def test_target_cleared_and_zero_new(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
-            bh = root / ".bug-hunter"
+            bh = root / ".mmit"
             bh.mkdir()
             init_mod.init_state(root, routes=["/"], viewports=["375x812"])
             captures = root / "captures"
@@ -536,7 +536,7 @@ class TestHuntRound(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             init_mod.init_state(root, routes=["/"], viewports=["375x812"])
-            captures = root / ".bug-hunter" / "runs" / "run-1" / "captures"
+            captures = root / ".mmit" / "hunts" / "runs" / "run-1" / "captures"
             captures.mkdir(parents=True)
             (captures / "home__375x812__elements.json").write_text(
                 json.dumps(
@@ -593,7 +593,7 @@ class TestHuntRound(unittest.TestCase):
             self.assertIn("overflow-x", summary["by_rule"])
             self.assertIn("touch-target", summary["by_rule"])
             self.assertEqual(summary["new_count"], summary["findings_total"])
-            self.assertTrue((root / ".bug-hunter" / "runs" / "run-1" / "summary.json").exists())
+            self.assertTrue((root / ".mmit" / "hunts" / "runs" / "run-1" / "summary.json").exists())
             # second round should dedupe
             summary2 = hr.run_hunt_round(
                 root=root, run_id="run-2", skip_capture=True, captures=captures
@@ -731,7 +731,7 @@ class TestReviewCriticals(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             init_mod.init_state(root, routes=["/"], viewports=["375x812"])
-            captures = root / ".bug-hunter" / "runs" / "run-1" / "captures"
+            captures = root / ".mmit" / "hunts" / "runs" / "run-1" / "captures"
             captures.mkdir(parents=True)
             (captures / "MANIFEST.json").write_text(
                 json.dumps(

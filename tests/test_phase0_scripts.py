@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "mmit-hunter" / "scripts"))
+sys.path.insert(0, str(ROOT / "mmit" / "scripts"))
 
 import fingerprint as fp  # noqa: E402
 import init_state as init_mod  # noqa: E402
@@ -19,9 +19,9 @@ class TestInitState(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             state = init_mod.init_state(root, routes=["/", "/about"], viewports=["375x812"])
-            self.assertTrue((root / ".bug-hunter" / "state.json").exists())
-            self.assertTrue((root / ".bug-hunter" / "fingerprints.json").exists())
-            self.assertTrue((root / ".bug-hunter" / "bugs" / "confirmed").is_dir())
+            self.assertTrue((root / ".mmit" / "state.json").exists())
+            self.assertTrue((root / ".mmit" / "fingerprints.json").exists())
+            self.assertTrue((root / ".mmit" / "bugs" / "confirmed").is_dir())
             self.assertEqual(state["surfaces"]["web"]["routes"], ["/", "/about"])
             self.assertEqual(state["convergence"]["required_quiet_streak"], 2)
             budget = state["budget"]
@@ -65,7 +65,7 @@ class TestInitState(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             init_mod.init_state(root, quiet_streak=2)
-            state_path = root / ".bug-hunter" / "state.json"
+            state_path = root / ".mmit" / "state.json"
             raw = state_path.read_bytes()
             state_path.write_bytes(b"\xef\xbb\xbf" + raw)
             summary = init_mod.resume_summary(root)
@@ -309,12 +309,12 @@ class TestInitStateLock(unittest.TestCase):
     def test_lock_prevents_overwrite(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
-            lock = root / ".bug-hunter" / ".lock"
+            lock = root / ".mmit" / ".lock"
             lock.parent.mkdir(parents=True, exist_ok=True)
             lock.write_text("other\n", encoding="utf-8")
             with self.assertRaises(init_mod.LockError):
                 init_mod.init_state(root)
-            self.assertFalse((root / ".bug-hunter" / "state.json").exists())
+            self.assertFalse((root / ".mmit" / "state.json").exists())
 
 
 if __name__ == "__main__":

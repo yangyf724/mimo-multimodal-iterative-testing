@@ -11,7 +11,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "mmit-hunter" / "scripts"))
+sys.path.insert(0, str(ROOT / "mmit" / "scripts"))
 
 import fix_gate as fg  # noqa: E402
 import hunt_round as hr  # noqa: E402
@@ -225,12 +225,12 @@ def main() -> int:
             base_url="http://127.0.0.1:5173",
         )
         # Simulate L2 (captures exist)
-        state_path = root / ".bug-hunter" / "state.json"
+        state_path = root / ".mmit" / "state.json"
         state = json.loads(state_path.read_text(encoding="utf-8"))
         state["surfaces"]["web"]["degrade_level"] = "L2"
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-        captures = root / ".bug-hunter" / "runs" / "run-1" / "captures"
+        captures = root / ".mmit" / "hunts" / "runs" / "run-1" / "captures"
         build_captures(captures)
 
         summary1 = hr.run_hunt_round(
@@ -256,7 +256,7 @@ def main() -> int:
         assert not missing, f"missing rules: {missing}"
 
         # Viewport-specific fingerprints: overlap at 375 and 1440 are distinct.
-        fp_path = root / ".bug-hunter" / "fingerprints.json"
+        fp_path = root / ".mmit" / "fingerprints.json"
         fps = json.loads(fp_path.read_text(encoding="utf-8"))
         overlap_vps = {
             e.get("viewport")
@@ -275,7 +275,7 @@ def main() -> int:
         assert summary2["known_count"] == summary1["findings_total"]
 
         # Fix gate: simulate fixing overflow-x only (remove root overflow, keep other defects)
-        fixed_captures = root / ".bug-hunter" / "runs" / "run-fix" / "captures"
+        fixed_captures = root / ".mmit" / "hunts" / "runs" / "run-fix" / "captures"
         build_captures(fixed_captures)
         fixed_home = json.loads(
             (fixed_captures / "home__375x812__elements.json").read_text(encoding="utf-8")
@@ -295,10 +295,10 @@ def main() -> int:
             "location": {"route": "/", "viewport": "375x812", "selector": "html"},
             "run_id": "run-fix",
         }
-        write_json(root / ".bug-hunter" / "bugs" / "confirmed" / "bug-overflow-home-375.json", bug)
+        write_json(root / ".mmit" / "bugs" / "confirmed" / "bug-overflow-home-375.json", bug)
 
         # Create dummy baselines with Pillow if available so pixel gate runs
-        baseline_dir = root / ".bug-hunter" / "baselines" / "web"
+        baseline_dir = root / ".mmit" / "baselines" / "web"
         try:
             from PIL import Image
 

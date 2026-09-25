@@ -2,7 +2,7 @@
 
 > 目标：设计一个 MiMoCode skill，对任意代码库 / Web 应用 / 画布设计持续抓 BUG——覆盖**文字向**（代码逻辑、类型、安全）与**非文字向**（网页视觉、布局、可访问性、画布构图、交互状态），直到收敛——「在约定范围内没有新确认 BUG」为止。
 
-**仓库定位（锁定）**：本仓库是 **skill 源码仓**。`DESIGN.md` 为设计真源；实现落地为根目录 `mmit-hunter/`（Phase 0 起创建）。设计若需降级归档，移至 `docs/DESIGN.md`，不在本阶段拆仓。
+**仓库定位（锁定）**：本仓库是 **skill 源码仓**。`DESIGN.md` 为设计真源；实现落地为根目录 `mmit/`（合并后的统一 skill）。设计若需降级归档，移至 `docs/DESIGN.md`，不在本阶段拆仓。
 
 **SKILL.md 边界**：正文只保留触发条件、Scope 问答、主循环步骤、停止条件、输出模板指针。规则阈值、采集细节、脚本参数一律进 `references/` 与 `scripts/`，禁止把本 DESIGN 整篇塞进 SKILL.md。
 
@@ -593,7 +593,7 @@ MiMo Multimodal Iterative Testing/          # 本仓库根
 ├── docs/
 │   ├── ACCEPTANCE.md               # Phase 0 验收项目与 DoD 勾选
 │   └── METRICS.md                  # 各项目观测指标（§11）
-└── mmit-hunter/           # skill 本体
+└── mmit/                  # skill 本体（合并后）
     ├── SKILL.md
     ├── references/
     │   ├── strategies.md            # 全部通道配方
@@ -620,7 +620,7 @@ MiMo Multimodal Iterative Testing/          # 本仓库根
 
 ```yaml
 ---
-name: mmit-hunter
+name: mmit
 description: >
   全模态迭代抓 BUG 直到收敛：代码通道（静态/动态/生成式）+ 视觉通道
   （布局几何、对比度、axe 无障碍、响应式矩阵、UX 状态）+ 画布通道
@@ -735,7 +735,7 @@ description: >
 
 **交付物**
 
-- `mmit-hunter/SKILL.md`（主循环，≤5000 词）
+- `mmit/SKILL.md`（主循环，≤5000 词）
 - `scripts/`: `init_state.py`, `fingerprint.py`, `converge_check.py`
 - 通道：`static` `dynamic` + degrade≥L2 时的 `a11y-axe` + `overflow-x`（`layout-geom` 最小集）
 - `references/report-template.md` + 能写出 `REPORT.md`
@@ -868,3 +868,19 @@ description: >
 > 我会用代码分析 + 浏览器截图/DOM/无障碍树（以及画布场景）反复扫你的项目：能机器判定的用规则和数字说话，拿不准的先当候选；能修的修完会做功能与视觉回归；连续两轮（在当前能力级别下）扫不出新的确认问题我就停，并明确告诉你扫过哪些页面和分辨率、降到了哪一档能力、还有哪些盲区。
 
 **实现时必须原样或等价写入 SKILL.md，作为对用户的承诺边界。**
+
+---
+
+## 统一流水线（3.1 合并）
+
+本节覆盖 mmit-hunter + mmit-test 合并后的契约变更；与上文冲突时以本节与 docs/compose/spec/mmit-unified.md 为准。
+
+| 项 | 值 |
+|----|-----|
+| skill ID | mmit（单包） |
+| 状态目录 | 目标项目 .mmit/（hunts/ / tests/ / deliverables/） |
+| 深度 | hunt（轻量三态）/ release（RC 全量三态） |
+| 出口 | 一律 Allow / Deny / Escalate |
+| legacy | .bug-hunter/、.mit/ 由 scripts/migrate_state.py 迁入 |
+
+SKILL.md 触发词覆盖原 hunter 与 test；规则阈值仍在 references/ 与 scripts/。

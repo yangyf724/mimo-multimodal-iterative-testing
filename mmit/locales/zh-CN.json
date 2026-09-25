@@ -1,0 +1,4 @@
+{
+  "displayName": "MMIT 全模态质量门",
+  "brief": "统一流水线：抓 BUG 至 quiet 收敛 + 发布就绪 RC 裁决，出口 Allow/Deny/Escalate"
+}

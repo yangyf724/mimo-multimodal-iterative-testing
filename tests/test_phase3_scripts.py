@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ROOT / "mmit-hunter" / "scripts"
+SCRIPTS = ROOT / "mmit" / "scripts"
 if str(SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SCRIPTS))
 
@@ -91,7 +91,7 @@ class TestDiscoverRoutes(unittest.TestCase):
     def test_write_state_routes(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            bh = root / ".bug-hunter"
+            bh = root / ".mmit"
             bh.mkdir()
             (bh / "state.json").write_text(
                 json.dumps({"surfaces": {"web": {"routes": ["/"], "base_url": "http://x"}}}),
@@ -162,7 +162,7 @@ class TestFpFeedback(unittest.TestCase):
     def test_absorb_and_apply(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            (root / ".bug-hunter").mkdir()
+            (root / ".mmit").mkdir()
             bug_path = root / "bug.json"
             bug = self._finding(id="bug-1", status="rejected", reject_reason="design chip")
             bug_path.write_text(json.dumps(bug), encoding="utf-8")
@@ -178,7 +178,7 @@ class TestFpFeedback(unittest.TestCase):
                 ]
             )
             self.assertEqual(rc, 0)
-            store = fpf.load_patterns(root / ".bug-hunter" / "fp_patterns.json")
+            store = fpf.load_patterns(root / ".mmit" / "fp_patterns.json")
             self.assertEqual(len(store["patterns"]), 1)
             marked, hits = fpf.apply_patterns([self._finding()], store)
             self.assertEqual(marked[0]["status"], "suppressed")
@@ -187,7 +187,7 @@ class TestFpFeedback(unittest.TestCase):
     def test_agents_snippet_generated_not_touch_agents_md(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            (root / ".bug-hunter").mkdir()
+            (root / ".mmit").mkdir()
             store = fpf.empty_store()
             fpf.add_pattern(
                 store,
@@ -199,8 +199,8 @@ class TestFpFeedback(unittest.TestCase):
                     "reason": "test",
                 },
             )
-            fpf.save_patterns(root / ".bug-hunter" / "fp_patterns.json", store)
-            out = root / "AGENTS.bug-hunter.snippet.md"
+            fpf.save_patterns(root / ".mmit" / "fp_patterns.json", store)
+            out = root / "AGENTS.mmit.snippet.md"
             rc = fpf.main(["agents-snippet", "--root", str(root), "--out", str(out)])
             self.assertEqual(rc, 0)
             self.assertTrue(out.exists())
@@ -211,7 +211,7 @@ class TestExportReport(unittest.TestCase):
     def test_build_and_validate(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            bh = root / ".bug-hunter"
+            bh = root / ".mmit"
             (bh / "bugs" / "confirmed").mkdir(parents=True)
             (bh / "bugs" / "rejected").mkdir(parents=True)
             (bh / "runs" / "run-1").mkdir(parents=True)
@@ -251,7 +251,7 @@ class TestExportReport(unittest.TestCase):
                         "fix_route": "local",
                         "fix_reason_codes": ["oracle_ok"],
                         "fix_attempts": {"local": 1, "lite": 0, "diminishing": False},
-                        "packet_path": ".bug-hunter/bugs/bug-1/packet.json",
+                        "packet_path": ".mmit/bugs/bug-1/packet.json",
                     }
                 ),
                 encoding="utf-8",
@@ -286,7 +286,7 @@ class TestExportReport(unittest.TestCase):
             self.assertEqual(bug["fix_route"], "local")
             self.assertEqual(bug["fix_reason_codes"], ["oracle_ok"])
             self.assertFalse(bug["fix_attempts"]["diminishing"])
-            self.assertEqual(bug["packet_path"], ".bug-hunter/bugs/bug-1/packet.json")
+            self.assertEqual(bug["packet_path"], ".mmit/bugs/bug-1/packet.json")
 
     def test_validate_rejects_missing(self):
         errors = export_report.validate_export({"schema_version": 1})
@@ -457,7 +457,7 @@ class TestHuntRoundFpSuppress(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            bh = root / ".bug-hunter"
+            bh = root / ".mmit"
             caps = bh / "runs" / "run-1" / "captures"
             caps.mkdir(parents=True)
             elements = [

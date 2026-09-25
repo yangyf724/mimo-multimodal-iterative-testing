@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ROOT / "mmit-hunter" / "scripts"
+SCRIPTS = ROOT / "mmit" / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
 import canvas_probe  # noqa: E402
@@ -484,7 +484,7 @@ class TestCaptureShard(unittest.TestCase):
 
 class TestHuntRoundPhase2(unittest.TestCase):
     def _write_minimal_state(self, root: Path, canvas_items: list) -> None:
-        bh = root / ".bug-hunter"
+        bh = root / ".mmit"
         (bh / "runs" / "run-p2" / "captures").mkdir(parents=True)
         (bh / "runs" / "run-p2" / "findings" / "raw").mkdir(parents=True)
         state = {
@@ -555,7 +555,7 @@ class TestHuntRoundPhase2(unittest.TestCase):
                 root=root,
                 run_id="run-p2",
                 skip_capture=True,
-                captures=root / ".bug-hunter" / "runs" / "run-p2" / "captures",
+                captures=root / ".mmit" / "hunts" / "runs" / "run-p2" / "captures",
             )
             self.assertEqual(summary.get("degrade_level"), "L3")
             self.assertNotIn("canvas-safe", summary.get("strategies") or [])
@@ -625,7 +625,7 @@ class TestHuntRoundPhase2(unittest.TestCase):
     def test_ux_and_canvas_in_fixtures(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
-            bh = root / ".bug-hunter"
+            bh = root / ".mmit"
             (bh / "runs" / "run-p2" / "captures").mkdir(parents=True)
             (bh / "runs" / "run-p2" / "findings" / "raw").mkdir(parents=True)
             state = {

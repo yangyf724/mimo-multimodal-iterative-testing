@@ -1,7 +1,7 @@
 # 研究蓝图索引（Blueprints）
 
 > 状态：**索引**。原 `docs/blueprint/hunt-escalate-compose.md`（v1）与 `hunt-escalate-compose-v2.md`（v2）正文已删除。  
-> **blueprint ≠ compose Spec**；运行时行为真源：根 `DESIGN.md` > `mmit-hunter/references/fix-gate.md` > `mmit-hunter/references/compose-escalate.md`。  
+> **blueprint ≠ compose Spec**；运行时行为真源：根 `DESIGN.md` > `mmit/references/fix-gate.md` > `mmit/references/compose-escalate.md`。  
 > 历史 compose feature 文档结论见 `CHANGELOG.md` 与 `docs/ACCEPTANCE.md` / `docs/METRICS.md`。
 
 ## 适用范围

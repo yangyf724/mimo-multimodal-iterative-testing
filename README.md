@@ -2,65 +2,64 @@
 
 **简称：** MMIT（MiMo Multimodal Iterative Testing）— 对话与文档中可用 MMIT 指代本项目。
 
-MiMoCode skill 源码仓，现含两套 skill：
+MiMoCode skill 源码仓，现为**单一 skill**：
 
-1. **MMIT Hunter** `mmit-hunter/` — 全模态迭代抓 BUG（code + Web 视觉 + 画布），quiet 四条件收敛
-2. **MMIT Test** `mmit-test/` — 全模态迭代测试 / 发布就绪裁决（Profile→Matrix→RC Loop→Allow/Deny/Escalate）
+- **MMIT** `mmit/` — 全模态质量门流水线：抓 BUG 至 quiet 收敛 + 发布就绪 RC 裁决，出口统一 **Allow / Deny / Escalate**
+
+> 历史：`mmit-hunter/`（抓 BUG）与 `mmit-test/`（发布就绪）已合并进 `mmit/`，旧包删除。legacy 状态目录 `.bug-hunter/`、`.mit/` 可用 `mmit/scripts/migrate_state.py` 迁入 `.mmit/`。
 
 <!-- github-sync:begin -->
-**Version:** 3.0.0  
+**Version:** 3.1.0  
 **Last sync:** 2026-09-25
 <!-- github-sync:end -->
 
 ## 仓库定位
 
-- `DESIGN.md` — MMIT 设计真源（全模态 taxonomy、策略库、收敛与 Fix Gate）
-- `docs/skill-refactor-mmit-test.md` — MMIT Test 设计真源（MIT-DESIGN-001）
-- `mmit-hunter/` — MMIT skill 本体；视觉/布局抓 BUG 唯一真源
-- `mmit-test/` — MMIT Test skill 本体（SKILL.md + scripts + references + locales）；发布就绪测试真源
-- `examples/acceptance-demo/` / `examples/second-project/` — MMIT 验收 demo
-- `examples/mit-demo-webapi/` / `examples/mit-demo-media/` — MMIT Test 双 demo（web+api / media+canvas+3d）
-- `tests/` — 单元测试（MMIT phase* + MIT `test_mit_core`）
+- `mmit/` — 唯一 skill 包（SKILL.md + scripts + references + locales）
+- `DESIGN.md` — 设计真源（全模态 taxonomy、策略库、收敛与 Fix Gate）；文末附统一流水线说明
+- `docs/compose/spec/mmit-unified.md` — 本次合并的 compose spec / 交付契约
+- `docs/skill-refactor-mmit-test.md` / `docs/compose/spec/mmit-test.md` — 历史真源（已 superseded）
+- `examples/acceptance-demo/` / `examples/second-project/` — 抓 BUG 验收 demo
+- `examples/mit-demo-webapi/` / `examples/mit-demo-media/` — 发布就绪双 demo
+- `tests/` — 单元测试（hunt phase* + release `test_mit_core`）
 - `docs/ACCEPTANCE.md` / `docs/METRICS.md` / `docs/BLUEPRINTS.md` — 观测与索引
-- `docs/compose/spec/mmit-test.md` — MMIT Test 重构 compose spec
+
+## 深度（depth）
+
+| depth | 何时用 | 出口 |
+|-------|--------|------|
+| `hunt` | 抓 BUG / design QA / 修到没有 | quiet 收敛 → 三态 |
+| `release` | 发布就绪 / go-no-go / RC 验收 | SIG+RPT+EVD+PRD → 三态 |
 
 ## 快速开始
 
 ```powershell
-# 单元测试（两套 skill）
+# 单元测试
 $env:MIMO_PYTHON -m unittest discover -s tests -v
 
-# MMIT Test：对项目生成画像与冻结矩阵
-& $env:MIMO_PYTHON mmit-test/scripts/profile_scan.py --root <project>
-& $env:MIMO_PYTHON mmit-test/scripts/matrix_build.py --root <project> --freeze
+# hunt 深度：初始化并跑一轮
+& $env:MIMO_PYTHON mmit/scripts/init_state.py --root <project> --depth hunt --routes / /about
+& $env:MIMO_PYTHON mmit/scripts/capture_web.py --root <project> --run-id run-1
+& $env:MIMO_PYTHON mmit/scripts/hunt_round.py --root <project> --run-id run-1 --skip-capture
 
-# MMIT：在目标项目初始化状态
-& $env:MIMO_PYTHON mmit-hunter/scripts/init_state.py --root <project> --routes / /about
+# release 深度：画像 → 冻结矩阵 → 报告
+& $env:MIMO_PYTHON mmit/scripts/init_state.py --root <project> --depth release
+& $env:MIMO_PYTHON mmit/scripts/profile_scan.py --root <project>
+& $env:MIMO_PYTHON mmit/scripts/matrix_build.py --root <project> --freeze
+& $env:MIMO_PYTHON mmit/scripts/assemble_report.py --root <project>
+
+# legacy 状态迁移
+& $env:MIMO_PYTHON mmit/scripts/migrate_state.py --root <project>
 ```
 
-# Phase 1：采集 + 单轮 hunt（需 Playwright；否则用 MCP 采集后 --skip-capture）
-& $env:MIMO_PYTHON ../../mmit-hunter/scripts/capture_web.py --root . --run-id run-1
-& $env:MIMO_PYTHON ../../mmit-hunter/scripts/hunt_round.py --root . --run-id run-1 --skip-capture --dynamic-cmd "npm test"
+## 安装为 MiMo Desktop skill
 
-# Phase 2：分片采集 / ux flows / canvas
-& $env:MIMO_PYTHON ../../mmit-hunter/scripts/capture_web.py --root . --run-id run-1 --shard 0/2
-& $env:MIMO_PYTHON ../../mmit-hunter/scripts/hunt_round.py --root . --run-id run-2 --skip-capture `
-  --flows .bug-hunter/flows --canvas-items canvas/poster.scene.json
+将 `mmit/` 复制到：
 
-# Phase 3：路由发现 / FP 白名单 / 导出 / CI
-& $env:MIMO_PYTHON ../../mmit-hunter/scripts/discover_routes.py --root . --seed / --html public/index.html --write
-& $env:MIMO_PYTHON ../../mmit-hunter/scripts/export_report.py --root .
-& $env:MIMO_PYTHON ../../mmit-hunter/scripts/ci_gate.py --root ../..
-```
+- 全局：`~/.config/mimocode/skills/mmit/`
+- 项目：`<project>/.mimocode/skills/mmit/`
 
-## 安装为 MiMo Desktop skill（可选）
-
-将 `mmit-hunter/` 复制到：
-
-- 全局：`~/.config/mimocode/skills/mmit-hunter/`
-- 项目：`<project>/.mimocode/skills/mmit-hunter/`
-
-新开对话后生效。
+新开对话后生效。若本机仍装有 `mmit-hunter` / `mmit-test`，确认无其它会话依赖后可删除旧目录。
 
 ## License
 

@@ -93,7 +93,7 @@ npm start
 
 | # | 检查项 | 通过标准 | 状态 |
 |---|--------|----------|------|
-| 1 | Skill 安装 | 复制到 `~/.config/mimocode/skills/mmit-hunter/`，含 SKILL.md/scripts/references/locales | **PASS** — UTF-8 校验通过 |
+| 1 | Skill 安装 | 复制到 `~/.config/mimocode/skills/mmit/`，含 SKILL.md/scripts/references/locales | **PASS** — UTF-8 校验通过 |
 | 2 | 服务可达 | `node server.js` @ `http://127.0.0.1:5174` 返回 200 | **PASS** |
 | 3 | init + discover | state routes 含 `/shop` `/contact` | **PASS** — package.json + live HTML |
 | 4 | hunt 命中 | summary `by_rule` 含期望中 ≥3 类 | **PASS** — overflow-x / dead-link / missing-feedback / touch-target / contrast-text / ux-flow-step / safe-area-violation / export-mismatch / dynamic-fail 等 13 类 |

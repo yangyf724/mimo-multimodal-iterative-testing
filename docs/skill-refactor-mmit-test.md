@@ -1,3 +1,5 @@
+> **Superseded by** docs/compose/spec/mmit-unified.md 与 skill 包 mmit/（hunter+test 已合并）。本文保留为历史真源。
+
 # 设计文档：全模态迭代测试 Skill 重构
 
 | 字段 | 内容 |

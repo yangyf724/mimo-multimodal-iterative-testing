@@ -5,6 +5,26 @@ All notable changes to this project are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 Versioning follows [SemVer](https://semver.org/).
 
+## [3.1.0] - 2026-09-25
+
+### 摘要
+将 **mmit-hunter** 与 **mmit-test** 合并为单一 skill **`mmit`**：统一流水线（depth=hunt|release），状态目录统一 `.mmit/`，出口一律 Allow/Deny/Escalate；删除旧双包与重复脚本。
+
+### Added
+- `mmit/` — 统一 skill：SKILL.md（depth 门控主循环）、`mmit_lib.py`、合并后的 scripts/references/locales
+- `mmit/scripts/migrate_state.py` — 从 `.bug-hunter/` 与 `.mit/` 迁入 `.mmit/state.json`
+- `docs/compose/spec/mmit-unified.md` — 合并设计与任务契约
+
+### Changed
+- 状态目录：目标项目统一为 `.mmit/`（`hunts/` 抓 BUG 轮次，`tests/` 发布矩阵/RC，`deliverables/` 交付物）
+- `fix_gate.py` 合并为超集：hunter 探针实门 + 四条件 CLI（无 `--regression-green` 不得 passed）
+- `init_state.py` 扁平并集 state（hunt + release 字段），兼容原 API（`init_state()` / `resume_summary` / `LockError`）
+- 脚本去重：原 8 个字节级相同探针只保留一份；`canvas_probe` 以 test 超集为基
+
+### Removed
+- **Breaking**：删除 `mmit-hunter/` 与 `mmit-test/` 包目录；触发词由 `mmit` description 承接
+- 不再写 `.bug-hunter/` / `.mit/`（迁移工具只读旧目录）
+
 ## [3.0.0] - 2026-09-25
 
 ### Changed

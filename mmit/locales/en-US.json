@@ -1,0 +1,4 @@
+{
+  "displayName": "MMIT Quality Gate",
+  "brief": "Unified pipeline: hunt bugs until quiet convergence and release-readiness RC adjudication with Allow/Deny/Escalate"
+}

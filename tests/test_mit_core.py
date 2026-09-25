@@ -7,16 +7,16 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MIT_SCRIPTS = ROOT / "mmit-test" / "scripts"
-sys.path.insert(0, str(MIT_SCRIPTS))
+MMIT_SCRIPTS = ROOT / "mmit" / "scripts"
+sys.path.insert(0, str(MMIT_SCRIPTS))
 
-# Load MIT modules under unique names to avoid clashing with mmit-hunter scripts
+# Load MIT modules under unique names to avoid clashing with mmit scripts
 # (both packages ship init_state.py / fix_gate.py; unittest discover shares sys.modules).
 def _load(mod_name: str):
     name = f"mit_{mod_name}"
     if name in sys.modules:
         return sys.modules[name]
-    path = MIT_SCRIPTS / f"{mod_name}.py"
+    path = MMIT_SCRIPTS / f"{mod_name}.py"
     spec = importlib.util.spec_from_file_location(name, path)
     mod = importlib.util.module_from_spec(spec)
     sys.modules[name] = mod
@@ -37,9 +37,9 @@ mr = _load("matrix_run")
 ms = _load("migrate_state")
 ps = _load("profile_scan")
 pp = _load("prod_probe")
-mit_lib = _load("mit_lib")
-read_json = mit_lib.read_json
-write_json = mit_lib.write_json
+mmit_lib = _load("mmit_lib")
+read_json = mmit_lib.read_json
+write_json = mmit_lib.write_json
 
 
 class MitTmp(unittest.TestCase):
@@ -94,8 +94,8 @@ class TestStateAndMigrate(MitTmp):
         root = self._demo_project()
         rc = init_mod.main(["--root", str(root), "--prod-access", "readonly"])
         self.assertEqual(rc, 0)
-        state = read_json(root / ".mit" / "state.json")
-        self.assertEqual(state["skill"], "mmit-test")
+        state = read_json(root / ".mmit" / "state.json")
+        self.assertEqual(state["skill"], "mmit")
         self.assertEqual(state["prod_access"], "readonly")
         self.assertEqual(state["decision"], "in_progress")
         self.assertEqual(state["budget"]["max_rc_rounds"], 5)
@@ -117,11 +117,76 @@ class TestStateAndMigrate(MitTmp):
         )
         rc = ms.main(["--root", str(root)])
         self.assertEqual(rc, 0)
-        state = read_json(root / ".mit" / "state.json")
-        self.assertEqual(state["mode"], "test-and-fix")
+        state = read_json(root / ".mmit" / "state.json")
+        self.assertEqual(state["mode"], "hunt-and-fix")
+        self.assertEqual(state["run_count"], 7)
         self.assertEqual(state["round"], 7)
         self.assertEqual(state["quiet_streak"], 2)
         self.assertIn("migrated_from", state)
+
+    def test_migrate_from_mit_only(self):
+        root = self._demo_project()
+        mit = root / ".mit"
+        mit.mkdir()
+        write_json(
+            mit / "state.json",
+            {
+                "skill": "mmit-test",
+                "mode": "test-and-fix",
+                "rc_n": 3,
+                "rc_sha": "abc123",
+                "matrix_rev": "m2",
+                "open_defects": {"P0": 1, "P1": 0, "P2": 0, "P3": 0},
+                "prod_test_state": "done",
+                "quiet_streak": 1,
+            },
+        )
+        rc = ms.main(["--root", str(root)])
+        self.assertEqual(rc, 0)
+        state = read_json(root / ".mmit" / "state.json")
+        self.assertEqual(state["depth"], "release")
+        self.assertEqual(state["rc_n"], 3)
+        self.assertEqual(state["rc_sha"], "abc123")
+        self.assertEqual(state["matrix_rev"], "m2")
+        self.assertEqual(state["open_defects"]["P0"], 1)
+        self.assertEqual(state["prod_test_state"], "done")
+
+    def test_migrate_dual_sources_no_field_loss(self):
+        root = self._demo_project()
+        (root / ".bug-hunter").mkdir()
+        (root / ".mit").mkdir()
+        write_json(
+            root / ".bug-hunter" / "state.json",
+            {
+                "skill": "mmit-hunter",
+                "mode": "hunt-and-fix",
+                "run_count": 7,
+                "quiet_streak": 2,
+                "modalities_enabled": ["code", "web-visual"],
+            },
+        )
+        write_json(
+            root / ".mit" / "state.json",
+            {
+                "skill": "mmit-test",
+                "mode": "test-and-fix",
+                "rc_n": 3,
+                "rc_sha": "abc123",
+                "matrix_rev": "m2",
+                "open_defects": {"P0": 1, "P1": 0, "P2": 0, "P3": 0},
+                "prod_test_state": "done",
+            },
+        )
+        rc = ms.main(["--root", str(root)])
+        self.assertEqual(rc, 0)
+        state = read_json(root / ".mmit" / "state.json")
+        self.assertEqual(state["run_count"], 7)
+        self.assertEqual(state["rc_n"], 3)
+        self.assertEqual(state["rc_sha"], "abc123")
+        self.assertEqual(state["matrix_rev"], "m2")
+        self.assertEqual(state["open_defects"]["P0"], 1)
+        self.assertEqual(state["prod_test_state"], "done")
+        self.assertEqual(state["quiet_streak"], 2)
 
 
 class TestMaskGate(MitTmp):
@@ -129,7 +194,7 @@ class TestMaskGate(MitTmp):
         root = self._demo_project()
         rc = dm.main(["--root", str(root)])
         self.assertEqual(rc, 0)
-        report = read_json(root / ".mit" / "data_mask_report.json")
+        report = read_json(root / ".mmit" / "tests" / "data_mask_report.json")
         self.assertTrue(report["clean"])
 
     def test_secret_fails_gate(self):
@@ -137,7 +202,7 @@ class TestMaskGate(MitTmp):
         (root / "leak.env").write_text("API_KEY=FAKE_TEST_KEY_NOT_A_SECRET_0123456789\n", encoding="utf-8")
         rc = dm.main(["--root", str(root)])
         self.assertEqual(rc, 1)
-        report = read_json(root / ".mit" / "data_mask_report.json")
+        report = read_json(root / ".mmit" / "tests" / "data_mask_report.json")
         self.assertFalse(report["clean"])
         self.assertGreater(report["count"], 0)
 
@@ -159,13 +224,13 @@ class TestRCAndRun(MitTmp):
         init_mod.main(["--root", str(root)])
         dm.main(["--root", str(root)])
         self.assertEqual(brc.main(["--root", str(root)]), 0)
-        state = read_json(root / ".mit" / "state.json")
+        state = read_json(root / ".mmit" / "state.json")
         self.assertEqual(state["rc_n"], 1)
         self.assertTrue(state["rc_sha"])
-        meta = read_json(root / ".mit" / "artifacts" / "RC-1.meta.json")
+        meta = read_json(root / ".mmit" / "tests" / "artifacts" / "RC-1.meta.json")
         self.assertEqual(meta["rc_sha"], state["rc_sha"])
         self.assertEqual(mr.main(["--root", str(root), "--dry-run"]), 0)
-        results = read_json(root / ".mit" / "runs" / "RC-1" / "findings" / "matrix_results.json")
+        results = read_json(root / ".mmit" / "tests" / "runs" / "RC-1" / "findings" / "matrix_results.json")
         self.assertIn("results", results)
         for r in results["results"]:
             if r["mark"] == "n/a":
@@ -190,15 +255,15 @@ class TestEnvProdSignals(MitTmp):
         mb.main(["--root", str(root), "--freeze"])
         init_mod.main(["--root", str(root), "--prod-access", "none"])
         eu.main(["--root", str(root)])
-        env = read_json(root / ".mit" / "env_manifest.json")
+        env = read_json(root / ".mmit" / "tests" / "env_manifest.json")
         self.assertFalse(env["layers"]["E2"]["available"])
         pp.main(["--root", str(root)])
-        prod = read_json(root / ".mit" / "prod_test_results.json")
+        prod = read_json(root / ".mmit" / "tests" / "prod_test_results.json")
         self.assertFalse(prod["available"])
         self.assertIn("missing_declaration", prod)
-        self.assertTrue((root / ".mit" / "deliverables" / "PROD_RESULTS_MISSING.md").exists())
+        self.assertTrue((root / ".mmit" / "deliverables" / "PROD_RESULTS_MISSING.md").exists())
         asig.main(["--root", str(root)])
-        signals = read_json(root / ".mit" / "deliverables" / "adjudication_signals.json")
+        signals = read_json(root / ".mmit" / "deliverables" / "adjudication_signals.json")
         self.assertIn("signals", signals)
         self.assertFalse(signals["signals"]["prod_test"]["available"])
         self.assertFalse(signals["signals"]["release_layers"]["exposure_ready"])
@@ -209,7 +274,7 @@ class TestDefectRegister(MitTmp):
         root = self._demo_project()
         init_mod.main(["--root", str(root)])
         dr.main(["--root", str(root), "--id", "D1", "--level", "P0", "--status", "open", "--title", "crash"])
-        state = read_json(root / ".mit" / "state.json")
+        state = read_json(root / ".mmit" / "state.json")
         self.assertEqual(state["open_defects"]["P0"], 1)
 
     def test_fixed_requires_regression_and_gate(self):
@@ -241,7 +306,7 @@ class TestDefectRegister(MitTmp):
             ["--root", str(root), "--id", "D2", "--level", "P1", "--status", "fixed", "--regression", "tests/t.py"]
         )
         self.assertEqual(rc, 0)
-        state = read_json(root / ".mit" / "state.json")
+        state = read_json(root / ".mmit" / "state.json")
         self.assertEqual(state["open_defects"]["P1"], 0)
 
     def test_path_traversal_rejected(self):
@@ -264,11 +329,11 @@ class TestEscalateAndSignalsIntegrity(MitTmp):
         ar.main(["--root", str(root)])
         rc = esc.main(["--root", str(root), "--reason", "budget exhausted", "--next-action", "human review"])
         self.assertEqual(rc, 0)
-        esc_dir = root / ".mit" / "escalation"
+        esc_dir = root / ".mmit" / "escalation"
         self.assertTrue((esc_dir / "REASON.md").exists())
         self.assertTrue((esc_dir / "next_actions.md").exists())
         self.assertTrue((esc_dir / "TEST_REPORT.md").exists())
-        state = read_json(root / ".mit" / "state.json")
+        state = read_json(root / ".mmit" / "state.json")
         self.assertEqual(state["decision"], "escalated")
 
     def test_mask_dirty_blocks_matrix_run(self):
@@ -296,7 +361,7 @@ class TestEscalateAndSignalsIntegrity(MitTmp):
         # no probes wired for web/api → blind_spot, coverage must be < 1 and artifact_ready false
         mr.main(["--root", str(root)])
         asig.main(["--root", str(root)])
-        signals = read_json(root / ".mit" / "deliverables" / "adjudication_signals.json")
+        signals = read_json(root / ".mmit" / "deliverables" / "adjudication_signals.json")
         self.assertFalse(signals["signals"]["release_layers"]["artifact_ready"])
         self.assertLess(signals["signals"]["matrix_required_coverage"], 1.0)
         self.assertTrue(signals["signals"]["regression_green"])  # no open high, no fixed-without-reg
@@ -317,7 +382,7 @@ class TestEscalateAndSignalsIntegrity(MitTmp):
             ]
         )
         asig.main(["--root", str(root)])
-        signals = read_json(root / ".mit" / "deliverables" / "adjudication_signals.json")
+        signals = read_json(root / ".mmit" / "deliverables" / "adjudication_signals.json")
         self.assertFalse(signals["signals"]["regression_green"])
         self.assertIn("D9", signals["signals"]["fixed_without_regression"])
 
@@ -327,7 +392,7 @@ class TestMaskGateNoSnippet(MitTmp):
         root = self._demo_project()
         (root / "leak.env").write_text("API_KEY=FAKE_TEST_KEY_NOT_A_SECRET_0123456789\n", encoding="utf-8")
         dm.main(["--root", str(root)])
-        raw = (root / ".mit" / "data_mask_report.json").read_text(encoding="utf-8")
+        raw = (root / ".mmit" / "tests" / "data_mask_report.json").read_text(encoding="utf-8")
         self.assertNotIn("FAKE_TEST_KEY_NOT_A_SECRET_0123456789", raw)
         self.assertNotIn("snippet", raw)
 
@@ -402,7 +467,7 @@ class TestForceFixedNotGreen(MitTmp):
             ]
         )
         asig.main(["--root", str(root)])
-        signals = read_json(root / ".mit" / "deliverables" / "adjudication_signals.json")
+        signals = read_json(root / ".mmit" / "deliverables" / "adjudication_signals.json")
         self.assertFalse(signals["signals"]["regression_green"])
         self.assertIn("DX", signals["signals"]["fixed_without_gate"])
 
