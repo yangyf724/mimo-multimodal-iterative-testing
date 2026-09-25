@@ -7,10 +7,10 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MIT_SCRIPTS = ROOT / "multimodal-iterative-testing" / "scripts"
+MIT_SCRIPTS = ROOT / "mmit-test" / "scripts"
 sys.path.insert(0, str(MIT_SCRIPTS))
 
-# Load MIT modules under unique names to avoid clashing with iterative-bug-hunter scripts
+# Load MIT modules under unique names to avoid clashing with mmit-hunter scripts
 # (both packages ship init_state.py / fix_gate.py; unittest discover shares sys.modules).
 def _load(mod_name: str):
     name = f"mit_{mod_name}"
@@ -95,7 +95,7 @@ class TestStateAndMigrate(MitTmp):
         rc = init_mod.main(["--root", str(root), "--prod-access", "readonly"])
         self.assertEqual(rc, 0)
         state = read_json(root / ".mit" / "state.json")
-        self.assertEqual(state["skill"], "multimodal-iterative-testing")
+        self.assertEqual(state["skill"], "mmit-test")
         self.assertEqual(state["prod_access"], "readonly")
         self.assertEqual(state["decision"], "in_progress")
         self.assertEqual(state["budget"]["max_rc_rounds"], 5)
@@ -107,7 +107,7 @@ class TestStateAndMigrate(MitTmp):
         write_json(
             bh / "state.json",
             {
-                "skill": "iterative-bug-hunter",
+                "skill": "mmit-hunter",
                 "mode": "hunt-and-fix",
                 "run_count": 7,
                 "quiet_streak": 2,

@@ -2,7 +2,7 @@
 
 ## 1. 执行摘要
 
-- 项目: `D:\mimo\worktrees\Mimo Iterative Bug Hunter\examples\mit-demo-webapi`
+- 项目: `D:\mimo\worktrees\MiMo Multimodal Iterative Testing\examples\mit-demo-webapi`
 - RC: `RC-1`  rc_sha: `2db6c86fef5a4580ae62ecedca2845a41f0d1bfd0c7c2d88599cd4eaba61f0ac`
 - 轮次: 1  matrix_rev: `m2`
 - 生成时间: 2026-09-25T03:01:45Z

@@ -2,7 +2,7 @@
   "name": "second-project",
   "version": "0.1.0",
   "private": true,
-  "description": "Phase 3 second acceptance project for iterative-bug-hunter generalization",
+  "description": "Phase 3 second acceptance project for mmit-hunter generalization",
   "scripts": {
     "start": "node server.js",
     "test": "node --test test/checkout.test.js"

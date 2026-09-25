@@ -7,8 +7,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(r"D:\BaiduSyncdisk\project\Mimo Iterative Bug Hunter\examples\second-project")
-SCRIPTS = Path(r"D:\BaiduSyncdisk\project\Mimo Iterative Bug Hunter\iterative-bug-hunter\scripts")
+ROOT = Path(r"D:\BaiduSyncdisk\project\MiMo Multimodal Iterative Testing\examples\second-project")
+SCRIPTS = Path(r"D:\BaiduSyncdisk\project\MiMo Multimodal Iterative Testing\mmit-hunter\scripts")
 
 
 def w(path: Path, obj: dict) -> None:

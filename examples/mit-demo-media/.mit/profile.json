@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "skill": "multimodal-iterative-testing",
+  "skill": "mmit-test",
   "scanned_at": "2026-09-25T02:58:34Z",
-  "root": "D:\\mimo\\worktrees\\Mimo Iterative Bug Hunter\\examples\\mit-demo-media",
+  "root": "D:\\mimo\\worktrees\\MiMo Multimodal Iterative Testing\\examples\\mit-demo-media",
   "app_types": [
     "web",
     "canvas",

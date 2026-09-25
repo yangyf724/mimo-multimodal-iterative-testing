@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "iterative-bug-hunter" / "scripts"))
+sys.path.insert(0, str(ROOT / "mmit-hunter" / "scripts"))
 
 import fingerprint as fp  # noqa: E402
 import init_state as init_mod  # noqa: E402

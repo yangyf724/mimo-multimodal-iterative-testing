@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "skill": "multimodal-iterative-testing",
+  "skill": "mmit-test",
   "matrix_rev": "m2",
   "frozen": true,
   "created_at": "2026-09-25T03:01:44Z",

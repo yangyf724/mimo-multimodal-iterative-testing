@@ -11,7 +11,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "iterative-bug-hunter" / "scripts"))
+sys.path.insert(0, str(ROOT / "mmit-hunter" / "scripts"))
 
 import fix_gate as fg  # noqa: E402
 import hunt_round as hr  # noqa: E402

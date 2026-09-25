@@ -2,7 +2,7 @@
 
 > 目标：设计一个 MiMoCode skill，对任意代码库 / Web 应用 / 画布设计持续抓 BUG——覆盖**文字向**（代码逻辑、类型、安全）与**非文字向**（网页视觉、布局、可访问性、画布构图、交互状态），直到收敛——「在约定范围内没有新确认 BUG」为止。
 
-**仓库定位（锁定）**：本仓库是 **skill 源码仓**。`DESIGN.md` 为设计真源；实现落地为根目录 `iterative-bug-hunter/`（Phase 0 起创建）。设计若需降级归档，移至 `docs/DESIGN.md`，不在本阶段拆仓。
+**仓库定位（锁定）**：本仓库是 **skill 源码仓**。`DESIGN.md` 为设计真源；实现落地为根目录 `mmit-hunter/`（Phase 0 起创建）。设计若需降级归档，移至 `docs/DESIGN.md`，不在本阶段拆仓。
 
 **SKILL.md 边界**：正文只保留触发条件、Scope 问答、主循环步骤、停止条件、输出模板指针。规则阈值、采集细节、脚本参数一律进 `references/` 与 `scripts/`，禁止把本 DESIGN 整篇塞进 SKILL.md。
 
@@ -204,7 +204,7 @@ stateDiagram-v2
     </marker>
   </defs>
   <rect x="0" y="0" width="680" height="580" fill="#f8fafc"/>
-  <text x="340" y="26" text-anchor="middle" font-size="14" font-weight="500" fill="#0f172a">Iterative Bug Hunter — 全模态闭环</text>
+  <text x="340" y="26" text-anchor="middle" font-size="14" font-weight="500" fill="#0f172a">MMIT Hunter — 全模态闭环</text>
 
   <!-- Orchestrator -->
   <rect x="220" y="42" width="240" height="46" rx="8" fill="#e2e8f0" stroke="#334155" stroke-width="0.5"/>
@@ -588,12 +588,12 @@ converged ⇔ quiet_streak ≥ K
 ### 7.1 Skill 目录（与仓库定位一致）
 
 ```
-Mimo Iterative Bug Hunter/          # 本仓库根
+MiMo Multimodal Iterative Testing/          # 本仓库根
 ├── DESIGN.md                       # 本文（实现后可迁 docs/DESIGN.md）
 ├── docs/
 │   ├── ACCEPTANCE.md               # Phase 0 验收项目与 DoD 勾选
 │   └── METRICS.md                  # 各项目观测指标（§11）
-└── iterative-bug-hunter/           # skill 本体
+└── mmit-hunter/           # skill 本体
     ├── SKILL.md
     ├── references/
     │   ├── strategies.md            # 全部通道配方
@@ -620,7 +620,7 @@ Mimo Iterative Bug Hunter/          # 本仓库根
 
 ```yaml
 ---
-name: iterative-bug-hunter
+name: mmit-hunter
 description: >
   全模态迭代抓 BUG 直到收敛：代码通道（静态/动态/生成式）+ 视觉通道
   （布局几何、对比度、axe 无障碍、响应式矩阵、UX 状态）+ 画布通道
@@ -735,7 +735,7 @@ description: >
 
 **交付物**
 
-- `iterative-bug-hunter/SKILL.md`（主循环，≤5000 词）
+- `mmit-hunter/SKILL.md`（主循环，≤5000 词）
 - `scripts/`: `init_state.py`, `fingerprint.py`, `converge_check.py`
 - 通道：`static` `dynamic` + degrade≥L2 时的 `a11y-axe` + `overflow-x`（`layout-geom` 最小集）
 - `references/report-template.md` + 能写出 `REPORT.md`

@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ROOT / "iterative-bug-hunter" / "scripts"
+SCRIPTS = ROOT / "mmit-hunter" / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
 import canvas_probe  # noqa: E402

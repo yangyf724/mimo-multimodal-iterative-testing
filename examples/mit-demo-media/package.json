@@ -2,7 +2,7 @@
   "name": "mit-demo-media",
   "version": "0.2.0",
   "private": true,
-  "description": "Media / canvas / 3D oriented MIT-Test demo",
+  "description": "Media / canvas / 3D oriented MMIT-Test demo",
   "engines": { "node": "20" },
   "scripts": {
     "test": "node --test tests/"

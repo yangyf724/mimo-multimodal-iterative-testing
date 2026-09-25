@@ -1,4 +1,0 @@
-{
-  "displayName": "全模态迭代测试",
-  "brief": "按项目画像生成全模态测试矩阵，生产等价环境迭代发布就绪测试，agent 综合裁决 Allow/Deny/Escalate"
-}

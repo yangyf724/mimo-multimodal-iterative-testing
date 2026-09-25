@@ -19,7 +19,7 @@ jobs:
           python tests/phase1_fixture_e2e.py
           python tests/phase2_fixture_e2e.py
       - name: CI gate (axe off by default)
-        run: python iterative-bug-hunter/scripts/ci_gate.py --root . --out .ci-tmp/ci-gate.json
+        run: python mmit-hunter/scripts/ci_gate.py --root . --out .ci-tmp/ci-gate.json
       # Optional axe job can be enabled when demo server + axe-core are provisioned:
       # - run: npm i -D @axe-core/cli
-      # - run: python iterative-bug-hunter/scripts/axe_gate.py --html-file examples/second-project/public/index.html --fail-on violations
+      # - run: python mmit-hunter/scripts/axe_gate.py --html-file examples/second-project/public/index.html --fail-on violations
